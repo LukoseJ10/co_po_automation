@@ -1,17 +1,15 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function SelectedFaculty() {
+  const location = useLocation().state;
   const [faculty, setFaculty] = useState({
-    id: "TVE18",
-    name: "Sreelal",
-    dob: "12-12-1983",
-    address: "abc xyz blz blz blz",
-    gender: "M",
-    contact: "9876543210",
-    course: ["Course1", "Course2"],
+    id: location.faculty_id,
+    name: location.faculty_name,
+    department: location.dept_name,
+    email: location.faculty_email,
   });
 
   function Submit(e) {
@@ -28,7 +26,6 @@ export default function SelectedFaculty() {
     e.preventDefault();
     console.log("Back Button clicked.");
   }
-
   return (
     <div className="container-fluid">
       <div className="form">
@@ -39,12 +36,6 @@ export default function SelectedFaculty() {
               type="text"
               name="id"
               value={faculty.id}
-              onChange={(e) => {
-                setFaculty({
-                  ...faculty,
-                  id: e.target.value,
-                });
-              }}
             />
           </Form.Group>
           <Form.Group>
@@ -53,81 +44,23 @@ export default function SelectedFaculty() {
               type="text"
               name="name"
               value={faculty.name}
-              onChange={(e) => {
-                setFaculty({
-                  ...faculty,
-                  name: e.target.value,
-                });
-              }}
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>DOB</Form.Label>
+            <Form.Label>Department</Form.Label>
             <Form.Control
               type="text"
               name="dob"
-              value={faculty.dob}
-              onChange={(e) => {
-                setFaculty({
-                  ...faculty,
-                  dob: e.target.value,
-                });
-              }}
+              value={faculty.department}
             />
           </Form.Group>
           <Form.Group>
-            <Form.Label>Address</Form.Label>
+            <Form.Label>Email ID</Form.Label>
             <Form.Control
               type="text"
               name="address"
-              value={faculty.address}
-              onChange={(e) => {
-                setFaculty({
-                  ...faculty,
-                  address: e.target.value,
-                });
-              }}
+              value={faculty.email}
             />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Gender</Form.Label>
-            <Form.Control
-              type="text"
-              name="gender"
-              value={faculty.gender}
-              onChange={(e) => {
-                setFaculty({
-                  ...faculty,
-                  gender: e.target.value,
-                });
-              }}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Contact</Form.Label>
-            <Form.Control
-              type="text"
-              name="contact"
-              value={faculty.contact}
-              onChange={(e) => {
-                setFaculty({
-                  ...faculty,
-                  contact: e.target.value,
-                });
-              }}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Course</Form.Label>
-            {faculty.course.map((data, index) => (
-              <Form.Control
-                key={index}
-                type="text"
-                name="course"
-                value={data}
-                readOnly
-              />
-            ))}
           </Form.Group>
         </Form>
       </div>
